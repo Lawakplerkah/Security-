@@ -1,13 +1,15 @@
 {
   "users": [
     {
-      "username": "Reza",
+      username": "Reza",
       "password": "kuromi",
-      "allowedNumbers": [
-        "",
-        "oke",
-        "6283894064758"
-      ]
     }
+  ],
+  "sessions": [
+    {
+    }
+  ],
+  "allowedNumbers": [ 
   ]
+  
 }
