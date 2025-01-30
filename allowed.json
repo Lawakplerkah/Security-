@@ -1,3 +1,9 @@
-[
-  "6283894064758@s.whatsapp.net"
-]
+{
+  "users": [
+    {
+      "username": "Reza",
+      "password": "kuromi",
+      "allowedNumbers": [""]
+    }
+  ]
+}
