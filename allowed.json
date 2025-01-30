@@ -3,7 +3,7 @@
     {
       "username": "user1",
       "password": "password123",
-      "phoneNumber": "6281234567890"
+      "phoneNumber": "62838383"
     },
     {
       "username": "user2",
@@ -15,6 +15,10 @@
     {
       "username": "user1",
       "phoneNumber": "6281234567890"
+    },
+    {
+      "username": "user1",
+      "phoneNumber": "62838383"
     }
   ],
   "allowedNumbers": [
