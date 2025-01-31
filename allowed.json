@@ -18,7 +18,7 @@
     {
       "username": "KUROMI",
       "password": "KUROMI",
-      "phoneNumber": ""
+      "phoneNumber": "6283191348933"
     }
   ],
   "sessions": [
@@ -33,6 +33,10 @@
     {
       "username": "user1",
       "phoneNumber": "6283191348966"
+    },
+    {
+      "username": "KUROMI",
+      "phoneNumber": "6283191348933"
     }
   ],
   "allowedNumbers": [
