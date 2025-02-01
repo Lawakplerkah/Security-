@@ -6,11 +6,6 @@
       "phoneNumber": "6283191348966"
     },
     {
-      "username": "user2",
-      "password": "password456",
-      "phoneNumber": "6289876543210"
-    },
-    {
       "username": "Reza",
       "password": "Manuk",
       "phoneNumber": ""
@@ -23,6 +18,11 @@
     {
       "username": "KUROMI19",
       "password": "12378",
+      "phoneNumber": ""
+    },
+    {
+      "username": "xdil",
+      "password": "dil123",
       "phoneNumber": ""
     }
   ],
