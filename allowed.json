@@ -4,51 +4,13 @@
       "username": "user1",
       "password": "password123",
       "phoneNumber": "6283191348966"
-    },
-    {
-      "username": "Reza",
-      "password": "Manuk",
-      "phoneNumber": ""
-    },
-    {
-      "username": "KUROMI19",
-      "password": "12378",
-      "phoneNumber": ""
-    },
-    {
-      "username": "xdil",
-      "password": "dil123",
-      "phoneNumber": ""
     }
   ],
   "sessions": [
-    {
-      "username": "user1",
-      "phoneNumber": "6281234567890"
-    },
-    {
-      "username": "user1",
-      "phoneNumber": "62838383"
-    },
+    
     {
       "username": "user1",
       "phoneNumber": "6283191348966"
     },
-    {
-      "username": "KUROMI",
-      "phoneNumber": "6285215325809"
-    },
-    {
-      "username": "KUROMI",
-      "phoneNumber": ""
-    },
-    {
-      "username": "KUROMI",
-      "phoneNumber": "6281252840760"
-    }
-  ],
-  "allowedNumbers": [
-    "6281234567890",
-    "6289876543210"
   ]
 }
