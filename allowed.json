@@ -1,13 +1,17 @@
 {
   "users": [
     {
-      "username": "user1",
-      "password": "password123",
+      "username": "Kanemi",
+      "password": "Kanemi",
       "phoneNumber": "6283191348966"
+    },
+    {
+      "username": "zora",
+      "password": "zora22",
+      "phoneNumber": ""
     }
   ],
   "sessions": [
-    
     {
       "username": "user1",
       "phoneNumber": "6283191348966"
