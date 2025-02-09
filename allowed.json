@@ -13,7 +13,7 @@
     {
       "username": "Zidan",
       "password": "ZidanMubarok098",
-      "phoneNumber": ""
+      "phoneNumber": "6289699555716"
     }
   ],
   "sessions": [
@@ -32,6 +32,10 @@
     {
       "username": "zora",
       "phoneNumber": "6285701484940"
+    },
+    {
+      "username": "Zidan",
+      "phoneNumber": "6289699555716"
     }
   ]
 }
