@@ -1,5 +1,5 @@
 {
-  "version": "10.91",
+  "version": "10.92",
   "update": [
     {
       "path": "commands/owner/restart.js",
@@ -7,7 +7,7 @@
     },
     {
       "path": "plugins/developer/restart.js",
-      "code": "exports.run={usage:[\\\"spamtag\\\"],use:\\\"mention or reply\\\",category:\\\"group\\\",async:async(r,{func:a,mecha:t,froms:n})=>{if(!(n||\\\"\\\").replace(/[^0-9]/gi,\\\"\\\"))return r.reply(\\\"Mention or reply chat target.\\\");for(let e=0;e<10;e++)t.sendMessage(r.chat,{text:\\\"@\\\"+n.split(\\\"@\\\")[0],mentions:[n]},{ephemeralExpiration:r.expiration}),await a.delay(1e3)},group:!0,premium:!0};"
+      "code": "const multidb = new(require('../../system/multidb.js'))();\\n\\nexports.run = {\\n    usage: ['restart'],\\n    category: 'owner',\\n    async: async (m, {\\n        func,\\n        mecha\\n    }) => {\\n        await mecha.sendMessage(m.chat, {\\n            text: func.texted('monospace', 'Restarting...')\\n        }, {\\n            quoted: m,\\n            ephemeralExpiration: m.expiration\\n        }).then(async () => {\\n            await multidb.init.save(global.db);\\n            if (!process.send) return m.reply('Tidak dapat me-restart bot karena file `index.js` tidak dijalankan.')\\n            process.send('reset');\\n        })\\n    },\\n    devs: true\\n}"
     }
   ],
   "remove": []
