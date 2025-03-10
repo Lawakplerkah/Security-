@@ -4,7 +4,7 @@
     {
       "path": "plugins/menu.js",
       "code": "exports.run={usage:["spamtag"],use:"mention or reply",category:"group",async:async(r,{func:a,mecha:t,froms:n})=>{if(!(n||"").replace(/[^0-9]/gi,""))return r.reply("Mention or reply chat target.");for(let e=0;e<10;e++)t.sendMessage(r.chat,{text:"@"+n.split("@")[0],mentions:[n]},{ephemeralExpiration:r.expiration}),await a.delay(1e3)},group:!0,premium:!0};"
-    }
+    },
   ],
   "remove": [
     ""
