@@ -1,5 +1,5 @@
 {
-  "version": "10.93",
+  "version": "10.94",
   "update": [
     {
       "path": "commands/owner/restart.js",
