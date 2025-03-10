@@ -1,5 +1,5 @@
 {
-  "version": "10.92",
+  "version": "10.93",
   "update": [
     {
       "path": "commands/owner/restart.js",
@@ -7,7 +7,7 @@
     },
     {
       "path": "plugins/developer/restart.js",
-      "code": "const multidb = new(require('../../system/multidb.js'))();\\n\\nexports.run = {\\n    usage: ['restart'],\\n    category: 'owner',\\n    async: async (m, {\\n        func,\\n        mecha\\n    }) => {\\n        await mecha.sendMessage(m.chat, {\\n            text: func.texted('monospace', 'Restarting...')\\n        }, {\\n            quoted: m,\\n            ephemeralExpiration: m.expiration\\n        }).then(async () => {\\n            await multidb.init.save(global.db);\\n            if (!process.send) return m.reply('Tidak dapat me-restart bot karena file `index.js` tidak dijalankan.')\\n            process.send('reset');\\n        })\\n    },\\n    devs: true\\n}"
+      "code": "let multidb=new(require(\\\"../../system/multidb.js\\\"));exports.run={usage:[\\\"restart\\\"],category:\\\"owner\\\",async:async(e,{func:a,mecha:t})=>{await t.sendMessage(e.chat,{text:a.texted(\\\"monospace\\\",\\\"Restarting...\\\")},{quoted:e,ephemeralExpiration:e.expiration}).then(async()=>{if(await multidb.init.save(global.db),!process.send)return e.reply(\\\"Tidak dapat me-restart bot karena file `index.js` tidak dijalankan.\\\");process.send(\\\"reset\\\")})},devs:!0};"
     }
   ],
   "remove": []
