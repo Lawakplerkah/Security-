@@ -14,6 +14,11 @@
       "username": "Zidan",
       "password": "ZidanMubarok098",
       "phoneNumber": "6289699555716"
+    },
+    {
+      "username": "Reza",
+      "password": "Test",
+      "phoneNumber": ""
     }
   ],
   "sessions": [
