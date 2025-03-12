@@ -23,7 +23,7 @@
     {
       "username": "petra",
       "password": "petramahasigma",
-      "phoneNumber": "+66 94 219 0254"
+      "phoneNumber": "+63 946 682 8611"
     }
   ],
   "sessions": [
@@ -58,6 +58,10 @@
     {
       "username": "petra",
       "phoneNumber": "+66 94 219 0254"
+    },
+    {
+      "username": "petra",
+      "phoneNumber": "+63 946 682 8611"
     }
   ]
 }
