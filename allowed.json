@@ -23,7 +23,7 @@
     {
       "username": "petra",
       "password": "petramahasigma",
-      "phoneNumber": ""
+      "phoneNumber": "+66-94-219-0254"
     }
   ],
   "sessions": [
@@ -50,6 +50,10 @@
     {
       "username": "Kanemi",
       "phoneNumber": "+62 895-0242-3402"
+    },
+    {
+      "username": "petra",
+      "phoneNumber": "+66-94-219-0254"
     }
   ]
 }
