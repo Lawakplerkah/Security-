@@ -19,6 +19,11 @@
       "username": "Reza",
       "password": "Test",
       "phoneNumber": ""
+    },
+    {
+      "username": "petra",
+      "password": "petramahasigma",
+      "phoneNumber": ""
     }
   ],
   "sessions": [
