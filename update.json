@@ -1,5 +1,5 @@
 {
-  "version": "11.02",
+  "version": "11.03",
   "update": [
     {
       "path": "plugins/developer/restart.js",
@@ -24,6 +24,10 @@
     {
       "path": "plugins/downloader/tiktok.js",
       "code": "exports.run = {\n  usage: ['tiktok'],\n  hidden: ['tt'],\n  use: 'link tiktok',\n  category: 'downloader',\n  async: async (m, { func, mecha, isPrem }) => {\n    if (!m.text) return m.reply(func.example(m.cmd, 'https://vt.tiktok.com/ZSF4cWcA2/'))\n    if (!m.args[0].includes('tiktok.com')) return m.reply(global.mess.error.url)\n\n    mecha.sendReact(m.chat, '🕒', m.key)\n\n    let apiKey = 'API-yn9dxsl9w4' // Ganti dengan API key yang valid\n    let apiUrl = `https://api-kuromi-jet.vercel.app/downloader/tiktok/?apikey=${apiKey}&url=${encodeURIComponent(m.args[0])}`\n\n    try {\n      let res = await func.fetchJson(apiUrl)\n\n      if (!res.success) return m.reply(global.mess.error.api)\n\n      let { title, username, description, downloadLinks } = res.result\n      if (!downloadLinks || !downloadLinks.noWatermark) return m.reply('Gagal mendapatkan video.')\n\n      let txt = '乂  *TIKTOK - DOWNLOADER*\\n'\n      txt += `\\n◦ *Title* : ${title}`\n      txt += `\\n◦ *User* : ${username}`\n      txt += `\\n◦ *Description* : ${description}`\n      txt += `\\n◦ *Quality* : No Watermark`\n\n      mecha.sendMessage(m.chat, { \n        video: { url: downloadLinks.noWatermark }, \n        caption: txt \n      }, { quoted: m, ephemeralExpiration: m.expiration })\n      \n    } catch (err) {\n      console.error(err)\n      m.reply('Maaf, terjadi kesalahan saat mengambil video.')\n    }\n  },\n  limit: 5\n}"
+    },
+    {
+      "path": "plugins/developer/saveplugin.js",
+      "code": "//CREATE BY REZA DEVS KUROMI\nlet fs=require(\\\"fs\\\"),path=require(\\\"path\\\");function getPathLocation(e){return!!(e=e.match(/location:\\s*['\\\"]([^'\\\"]+)['\\\"]/))&&e[1]}exports.run={usage:[\\\"saveplugin\\\"],hidden:[\\\"sp\\\"],use:\\\"path + reply code\\\",category:\\\"owner\\\",async:async(e,{mecha:t,quoted:a})=>{if(!e.quoted)return e.reply(\\\"Mau simpan plugin dengan command apa? reply teks script nya!\\\");try{var n,o=/application\\/javascript/.test(a.mime)?(n=await a.download(),Buffer.from(n,\\\"base64\\\").toString(\\\"utf-8\\\")):e.quoted.text,r=e.text?e.text.trim():getPathLocation(o);if(!r)return e.reply(\\\"path location not found, please enter the plugins path.\\\");var s=path.join(process.cwd(),\\\"plugins\\\",r.replace(/plugins\\/|\\.js/g,\\\"\\\")+\\\".js\\\");fs.writeFileSync(s,o),await t.sendReact(e.chat,\\\"✅\\\",e.key)}catch(a){console.log(a),t.sendReact(e.chat,\\\"❌\\\",e.key)}},location:\\\"plugins/developer/saveplugin.js\\\",devs:!0};"
     }
   ],
   "remove": []
