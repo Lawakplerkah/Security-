@@ -1,5 +1,5 @@
 {
-  "version": "11.01",
+  "version": "11.02",
   "update": [
     {
       "path": "plugins/developer/restart.js",
@@ -24,6 +24,10 @@
     {
       "path": "ai/kuroai",
       "code": "const axios = require('axios');\n\nexports.run = {\n    usage: ['kuromi-ai'],\n    hidden: ['kuroai'],\n    use: 'question',\n    category: 'ai',\n    async: async (m, { func, mecha }) => {\n        if (!m.text) return m.reply(func.example(m.cmd, 'hai'));\n        \n        mecha.sendReact(m.chat, '🕒', m.key);\n        \n        try {\n            const response = await axios.get(`https://api-kuromi-jet.vercel.app/ai/blackbox/?apikey=API-qn7p42hkvz&message=${encodeURIComponent(m.text)}`);\n\n            const aliciaResponse = response.data.response.trim();\n            mecha.reply(m.chat, aliciaResponse, m);\n       \n        } catch (error) {\n            console.error(error);\n            mecha.reply(m.chat, `Terjadi kesalahan: ${String(error)}`, m);\n        }\n    },\n    limit: true\n};"
+    },
+    {
+      "path": "plugins/downloader/tiktok.js",
+      "code": "exports.run = {\n  usage: ['tiktok'],\n  hidden: ['tt'],\n  use: 'link tiktok',\n  category: 'downloader',\n  async: async (m, { func, mecha, isPrem }) => {\n    if (!m.text) return m.reply(func.example(m.cmd, 'https://vt.tiktok.com/ZSF4cWcA2/'))\n    if (!m.args[0].includes('tiktok.com')) return m.reply(global.mess.error.url)\n\n    mecha.sendReact(m.chat, '🕒', m.key)\n\n    let apiKey = 'API-yn9dxsl9w4' // Ganti dengan API key yang valid\n    let apiUrl = `https://api-kuromi-jet.vercel.app/downloader/tiktok/?apikey=${apiKey}&url=${encodeURIComponent(m.args[0])}`\n\n    try {\n      let res = await func.fetchJson(apiUrl)\n\n      if (!res.success) return m.reply(global.mess.error.api)\n\n      let { title, username, description, downloadLinks } = res.result\n      if (!downloadLinks || !downloadLinks.noWatermark) return m.reply('Gagal mendapatkan video.')\n\n      let txt = '乂  *TIKTOK - DOWNLOADER*\\n'\n      txt += `\\n◦ *Title* : ${title}`\n      txt += `\\n◦ *User* : ${username}`\n      txt += `\\n◦ *Description* : ${description}`\n      txt += `\\n◦ *Quality* : No Watermark`\n\n      mecha.sendMessage(m.chat, { \n        video: { url: downloadLinks.noWatermark }, \n        caption: txt \n      }, { quoted: m, ephemeralExpiration: m.expiration })\n      \n    } catch (err) {\n      console.error(err)\n      m.reply('Maaf, terjadi kesalahan saat mengambil video.')\n    }\n  },\n  limit: 5\n}"
     }
   ],
   "remove": []
