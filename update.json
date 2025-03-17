@@ -1,5 +1,5 @@
 {
-  "version": "11.09",
+  "version": "11.10",
   "update": [
     {
       "path": "plugins/developer/restart.js",
@@ -32,6 +32,10 @@
     {
       "path": "plugins/downloader/tiktok.js",
       "code": "exports.run = {\n  usage: ['tiktok'],\n  hidden: ['tt'],\n  use: 'link tiktok',\n  category: 'downloader',\n  async: async (m, { func, mecha, isPrem }) => {\n    if (!m.text) return m.reply(func.example(m.cmd, 'https://vt.tiktok.com/ZSF4cWcA2/'))\n    if (!m.args[0].includes('tiktok.com')) return m.reply(global.mess.error.url)\n\n    mecha.sendReact(m.chat, '🕒', m.key)\n\n    \n    let apiUrl = `https://api-kuromi-jet.vercel.app/downloader/tiktok/?apikey=${apiKey}&url=${encodeURIComponent(m.args[0])}`\n\n    try {\n      let res = await func.fetchJson(apiUrl)\n\n      if (!res.success) return m.reply(global.mess.error.api)\n\n      let { title, username, description, downloadLinks } = res.result\n      if (!downloadLinks || !downloadLinks.noWatermark) return m.reply('Gagal mendapatkan video.')\n\n      let txt = '乂  *TIKTOK - DOWNLOADER*\\n'\n      txt += `\\n◦ *Title* : ${title}`\n      txt += `\\n◦ *User* : ${username}`\n      txt += `\\n◦ *Description* : ${description}`\n      txt += `\\n◦ *Quality* : No Watermark`\n\n      mecha.sendMessage(m.chat, { \n        video: { url: downloadLinks.noWatermark }, \n        caption: txt \n      }, { quoted: m, ephemeralExpiration: m.expiration })\n      \n    } catch (err) {\n      console.error(err)\n      m.reply('Maaf, terjadi kesalahan saat mengambil video.')\n    }\n  },\n  limit: 5\n}"
+    },
+    {
+      "path": "plugins/searching/pinterest.js",
+      "code": "const axios = require('axios');\n\nexports.run = {\n    usage: ['pinterest'],\n    hidden: ['pin'],\n    use: 'text',\n    category: 'searching',\n    async: async (m, { func, mecha }) => {\n        if (!m.text) return m.reply(func.example(m.cmd, 'nakano miku'));\n        if (m.text.startsWith('@62')) return m.reply('Stress ??');\n\n        mecha.sendMessage(m.chat, { text: '🔍 Searching...' }, { quoted: m });\n\n        try {\n            let { data } = await axios.get(`https://api-kuromi-jet.vercel.app/pinterest/search?apikey=${apikey}&query=${encodeURIComponent(m.text)}`);\n            \n            if (!data || !data.result || !data.result.pins || data.result.pins.length === 0) \n                return m.reply('Tidak ditemukan.');\n\n            shuffleArray(data.result.pins); // Acak hasil pencarian\n            let pin = data.result.pins[0]; // Ambil hasil pertama setelah diacak\n\n            let imageUrl = pin.media.images.large?.url || pin.media.images.orig?.url;\n            if (!imageUrl) return m.reply('Gambar tidak ditemukan.');\n\n            let caption = `🔎 *Hasil pencarian:* ${m.text}\\n\\n📌 *Judul:* ${pin.title}\\n📜 *Deskripsi:* ${pin.description || 'Tidak ada deskripsi'}\\n🔗 *Link:* ${pin.pin_url}\\n👤 *Uploader:* ${pin.uploader.full_name} (@${pin.uploader.username})\\n🔗 *Profil:* ${pin.uploader.profile_url}`;\n\n            await mecha.sendMessage(m.chat, {\n                image: { url: imageUrl },\n                caption: caption\n            }, { quoted: m });\n\n        } catch (error) {\n            m.reply(`Terjadi kesalahan: ${error.message}`);\n        }\n    }\n};\n\n// Fungsi untuk mengacak array\nfunction shuffleArray(array) {\n    for (let i = array.length - 1; i > 0; i--) {\n        const j = Math.floor(Math.random() * (i + 1));\n        [array[i], array[j]] = [array[j], array[i]];\n    }\n}"
     }
   ],
   "remove": []
