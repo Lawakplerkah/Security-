@@ -38,7 +38,7 @@
     {
       "username": "Centaury_42",
       "password": "Centaury_42",
-      "phoneNumber": ""
+      "phoneNumber": "6285940783501"
     }
   ],
   "sessions": [
@@ -85,6 +85,10 @@
     {
       "username": "kayvunki",
       "phoneNumber": "6282129210600"
+    },
+    {
+      "username": "Centaury_42",
+      "phoneNumber": "6285940783501"
     }
   ]
 }
