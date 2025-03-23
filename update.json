@@ -1,5 +1,5 @@
 {
-  "version": "11.15",
+  "version": "11.16",
   "update": [
     {
       "path": "system/baileys.js",
@@ -8,6 +8,10 @@
     {
       "path": "plugins/special/owner.js",
       "code": "//CREATE BY REZA DEVS KUROMI\nexports.run={usage:[\\\"owner\\\"],hidden:[\\\"creator\\\",\\\"developer\\\",\\\"dev\\\"],category:\\\"special\\\",async:async(e,{kuromi:a})=>{a.sendkontak(e.chat,global.owner,global.ownerName,e)}};"
+    },
+    {
+      "path": "plugins/special/infobot.js",
+      "code": "Sp plugins/special/infobot.js"
     }
   ],
   "remove": []
