@@ -48,7 +48,7 @@
     {
       "username": "lianz",
       "password": "lianz",
-      "phoneNumber": ""
+      "phoneNumber": "6285835284903"
     }
   ],
   "sessions": [
@@ -103,6 +103,10 @@
     {
       "username": "Arif",
       "phoneNumber": "6283838396631"
+    },
+    {
+      "username": "lianz",
+      "phoneNumber": "6285835284903"
     }
   ]
 }
