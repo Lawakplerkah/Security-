@@ -1,5 +1,5 @@
 {
-  "version": "11.24",
+  "version": "11.25",
   "update": [
     {
       "path": "plugins/special/owner.js",
@@ -24,6 +24,10 @@
     {
       "path": "plugins/developer/restart.js",
       "code": "let multidb=new(require(\\\"../../system/multidb.js\\\"));exports.run={usage:[\\\"restart\\\"],category:\\\"owner\\\",async:async(e,{func:a,kuromi:t})=>{await t.sendMessage(e.chat,{text:a.texted(\\\"monospace\\\",\\\"Restarting...\\\")},{quoted:e,ephemeralExpiration:e.expiration}).then(async()=>{if(await multidb.init.save(global.db),!process.send)return e.reply(\\\"Tidak dapat me-restart bot karena file `index.js` tidak dijalankan.\\\");process.send(\\\"reset\\\")})},devs:!0};"
+    },
+    {
+      "path": "plugins/ai/hitamkan.js",
+      "code": "const { GoogleGenerativeAI } = require(\\\"@google/generative-ai\\\");\nconst fs = require(\\\"fs\\\");\nconst path = require(\\\"path\\\");\n\nexports.run = {\n  usage: ['hitamkan'], // Command utama\n  hidden: [], // Command simpel (jika ada)\n  use: 'Mengubah warna kulit dalam gambar menjadi hitam', // Deskripsi\n  category: 'ai',\n  async: async (m, { func, kuromi, isPrem }) => {\n    const { quoted } = m;\n    const q = quoted ? quoted : m;\n    const mime = (q.msg || q).mimetype || \\\"\\\";\n\n    if (!mime) return kuromi.reply(m.chat, `Kirim/reply gambar dengan caption *${func.prefix}hitamkan*`, m);\n    if (!/image\\/(jpe?g|png)/.test(mime)) return kuromi.reply(m.chat, `Format ${mime} tidak didukung! Hanya jpeg/jpg/png`, m);\n\n    let promptText = \\\"Ubahlah Karakter Dari Gambar Tersebut Diubah Kulitnya Menjadi Hitam\\\";\n\n    kuromi.reply(m.chat, \\\"Otw Menghitam...\\\", m);\n\n    try {\n      let imgData = await q.download();\n      let genAI = new GoogleGenerativeAI(\\\"AIzaSyDdfNNmvphdPdHSbIvpO5UkHdzBwx7NVm0\\\");\n\n      const base64Image = imgData.toString(\\\"base64\\\");\n\n      const contents = [\n        { text: promptText },\n        {\n          inlineData: {\n            mimeType: mime,\n            data: base64Image\n          }\n        }\n      ];\n\n      const model = genAI.getGenerativeModel({\n        model: \\\"gemini-2.0-flash-exp-image-generation\\\",\n        generationConfig: {\n          responseModalities: [\\\"Text\\\", \\\"Image\\\"]\n        },\n      });\n\n      const response = await model.generateContent(contents);\n\n      let resultImage;\n      let resultText = \\\"\\\";\n\n      for (const part of response.response.candidates[0].content.parts) {\n        if (part.text) {\n          resultText += part.text;\n        } else if (part.inlineData) {\n          const imageData = part.inlineData.data;\n          resultImage = Buffer.from(imageData, \\\"base64\\\");\n        }\n      }\n\n      if (resultImage) {\n        const tempPath = path.join(process.cwd(), \\\"tmp\\\", `gemini_${Date.now()}.png`);\n        fs.writeFileSync(tempPath, resultImage);\n\n        await kuromi.sendMessage(m.chat, {\n          image: { url: tempPath },\n          caption: `*Wahaha Makan Nih Hitam*`\n        }, { quoted: m });\n\n        setTimeout(() => {\n          try {\n            fs.unlinkSync(tempPath);\n          } catch {}\n        }, 30000);\n      } else {\n        kuromi.reply(m.chat, \\\"Gagal Menghitamkan.\\\", m);\n      }\n    } catch (error) {\n      console.error(error);\n      kuromi.reply(m.chat, `Error: ${error.message}`, m);\n    }\n  }\n};"
     }
   ],
   "remove": []
