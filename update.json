@@ -1,5 +1,5 @@
 {
-  "version": "11.28",
+  "version": "11.29",
   "update": [
     {
       "path": "plugins/special/owner.js",
@@ -32,6 +32,10 @@
     {
       "path": "plugins/owner/setmenu.js",
       "code": "//CREATE BY REZA DEVS KUROMI\nexports.run={usage:[\\\"setmenu\\\"],use:\\\"options\\\",category:\\\"owner\\\",async:async(e,{func:s,kuromi:t,setting:a})=>{try{return e.args&&e.args[0]?[\\\"1\\\",\\\"2\\\",\\\"3\\\",\\\"4\\\",\\\"5\\\"].includes(e.args[0])?void t.reply(e.chat,`Bot menu successfully set using style *${e.args[0]}*.`,e,{expiration:e.expiration}).then(()=>a.style=parseInt(e.args[0])):e.reply(\\\"Style not available.\\\"):e.reply(s.example(e.cmd,\\\"2\\\"))}catch(s){t.reply(e.chat,s.message,e,{expiration:e.expiration})}},owner:!0,location:\\\"plugins/owner/setmenu.js\\\"};"
+    },
+    {
+      "path": "plugins/group/moderation.js",
+      "code": "//CREATE BY REZA DEVS KUROMI\nexports.run={usage:[\\\"welcome\\\",\\\"left\\\",\\\"antigsmm\\\",\\\"detect\\\",\\\"antiporn\\\",\\\"antitoxic\\\",\\\"antilink\\\",\\\"antivirtex\\\",\\\"antibot\\\",\\\"antiluar\\\",\\\"antiviewonce\\\",\\\"antihidetag\\\",\\\"antidelete\\\",\\\"antiedited\\\",\\\"automatically\\\"],use:\\\"on / off\\\",category:\\\"admin tools\\\",async:async(a,{func:t,kuromi:n})=>{var e,i,o=global.db.groups[a.chat];return!a.isBotAdmin&&/antiporn|antitoxic|antilink|antivirtex|antibot|antiluar|antihidetag|automatically|antigsmm/.test(a.command)?a.reply(global.mess.botAdmin):a.args&&a.args[0]?(e=a.args[0].toLowerCase(),[\\\"on\\\",\\\"off\\\"].includes(e)?o[a.command]==(i=\\\"on\\\"===e)?a.reply(t.ucword(a.command)+` has been ${\\\"on\\\"==e?\\\"activated\\\":\\\"inactivated\\\"} previously.`):(o[a.command]=i,void n.reply(a.chat,t.ucword(a.command)+` has been ${\\\"on\\\"==e?\\\"activated\\\":\\\"inactivated\\\"} successfully.`,a)):a.reply(\\\"\\\"+t.example(a.cmd,\\\"on / off\\\"))):a.reply(`*Current status* : ${o[a.command]?\\\"active\\\":\\\"non-active\\\"}\n\n`+t.example(a.cmd,\\\"on / off\\\"))},admin:!0,group:!0,location:\\\"plugins/group/moderation.js\\\"};"
     }
   ],
   "remove": []
