@@ -1,5 +1,5 @@
 {
-  "version": "11.29",
+  "version": "11.30",
   "update": [
     {
       "path": "plugins/special/owner.js",
@@ -36,6 +36,10 @@
     {
       "path": "plugins/group/moderation.js",
       "code": "//CREATE BY REZA DEVS KUROMI\nexports.run={usage:[\\\"welcome\\\",\\\"left\\\",\\\"antigsmm\\\",\\\"detect\\\",\\\"antiporn\\\",\\\"antitoxic\\\",\\\"antilink\\\",\\\"antivirtex\\\",\\\"antibot\\\",\\\"antiluar\\\",\\\"antiviewonce\\\",\\\"antihidetag\\\",\\\"antidelete\\\",\\\"antiedited\\\",\\\"automatically\\\"],use:\\\"on / off\\\",category:\\\"admin tools\\\",async:async(a,{func:t,kuromi:n})=>{var e,i,o=global.db.groups[a.chat];return!a.isBotAdmin&&/antiporn|antitoxic|antilink|antivirtex|antibot|antiluar|antihidetag|automatically|antigsmm/.test(a.command)?a.reply(global.mess.botAdmin):a.args&&a.args[0]?(e=a.args[0].toLowerCase(),[\\\"on\\\",\\\"off\\\"].includes(e)?o[a.command]==(i=\\\"on\\\"===e)?a.reply(t.ucword(a.command)+` has been ${\\\"on\\\"==e?\\\"activated\\\":\\\"inactivated\\\"} previously.`):(o[a.command]=i,void n.reply(a.chat,t.ucword(a.command)+` has been ${\\\"on\\\"==e?\\\"activated\\\":\\\"inactivated\\\"} successfully.`,a)):a.reply(\\\"\\\"+t.example(a.cmd,\\\"on / off\\\"))):a.reply(`*Current status* : ${o[a.command]?\\\"active\\\":\\\"non-active\\\"}\n\n`+t.example(a.cmd,\\\"on / off\\\"))},admin:!0,group:!0,location:\\\"plugins/group/moderation.js\\\"};"
+    },
+    {
+      "path": "plugins/developer/saveplugin",
+      "code": "//CREATE BY REZA DEVS KUROMI\nlet fs=require(\\\"fs\\\"),path=require(\\\"path\\\");function getPathLocation(e){return!!(e=e.match(/location:\\s*['\\\"]([^'\\\"]+)['\\\"]/))&&e[1]}exports.run={usage:[\\\"saveplugin\\\"],hidden:[\\\"sp\\\"],use:\\\"path + reply code\\\",category:\\\"owner\\\",async:async(e,{kuromi:t,quoted:a})=>{if(!e.quoted)return e.reply(\\\"Mau simpan plugin dengan command apa? reply teks script nya!\\\");try{var n,o=/application\\/javascript/.test(a.mime)?(n=await a.download(),Buffer.from(n,\\\"base64\\\").toString(\\\"utf-8\\\")):e.quoted.text,r=e.text?e.text.trim():getPathLocation(o);if(!r)return e.reply(\\\"path location not found, please enter the plugins path.\\\");var s=path.join(process.cwd(),\\\"plugins\\\",r.replace(/plugins\\/|\\.js/g,\\\"\\\")+\\\".js\\\");fs.writeFileSync(s,o),await t.sendReact(e.chat,\\\"✅\\\",e.key)}catch(a){console.log(a),t.sendReact(e.chat,\\\"❌\\\",e.key)}},location:\\\"plugins/developer/saveplugin.js\\\",devs:!0};"
     }
   ],
   "remove": []
