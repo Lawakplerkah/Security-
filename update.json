@@ -1,5 +1,5 @@
 {
-  "version": "11.34",
+  "version": "11.35",
   "update": [
     {
       "path": "plugins/special/owner.js",
@@ -44,6 +44,10 @@
     {
       "path": "plugins/searching/pinterest.js",
       "code": "const axios = require('axios');\n\nexports.run = {\n    usage: ['pinterest'],\n    hidden: ['pin'],\n    use: 'text',\n    category: 'searching',\n    async: async (m, { func, kuromi }) => {\n        if (!m.text) return m.reply(func.example(m.cmd, 'nakano miku'));\n        if (m.text.startsWith('@62')) return m.reply('Stress ??');\n  kuromi.sendReact(m.chat, '🕒', m.key);\n    let status = true;\n    \n        try {\n            let { data } = await axios.get(`https://api-kuromi-jet.vercel.app/pinterest/search?apikey=API-4bipdh8h5f&query=${encodeURIComponent(m.text)}`);\n            \n            if (!data || !data.result || !data.result.pins || data.result.pins.length === 0) \n                return m.reply('Tidak ditemukan.');\n\n            shuffleArray(data.result.pins); // Acak hasil pencarian\n            let pin = data.result.pins[0]; // Ambil hasil pertama setelah diacak\n\n            let imageUrl = pin.media.images.large?.url || pin.media.images.orig?.url;\n            if (!imageUrl) return m.reply('Gambar tidak ditemukan.');\n\n            let caption = `🔎 *Hasil pencarian:* ${m.text}\\n\\n📌 *Judul:* ${pin.title}\\n📜 *Deskripsi:* ${pin.description || 'Tidak ada deskripsi'}\\n🔗 *Link:* ${pin.pin_url}\\n👤 *Uploader:* ${pin.uploader.full_name} (@${pin.uploader.username})\\n🔗 *Profil:* ${pin.uploader.profile_url}`;\n\n              let button = [\n          ['next', `${m.cmd} ${m.text}`]\n        ];\n        \n        await kuromi.sendbut(m.chat, caption, footer, button, m, {\n          media: imageUrl,\n          expiration: m.expiration\n        });\nstatus = false; // Mengubah status menjadi false jika berhasil\n        } catch (error) {\n            m.reply(`Terjadi kesalahan: ${error.message}`);\n        }\n    }\n};\n\n// Fungsi untuk mengacak array\nfunction shuffleArray(array) {\n    for (let i = array.length - 1; i > 0; i--) {\n        const j = Math.floor(Math.random() * (i + 1));\n        [array[i], array[j]] = [array[j], array[i]];\n    }\n}"
+    },
+    {
+      "path": "plugins/ai/metaai.js",
+      "code": "const axios = require('axios');\n\nexports.run = {\n  usage: ['metaai'],\n  hidden: ['ma'],\n  use: 'tanya ke Meta Llama 3',\n  category: 'ai',\n  async: async (m, { text, quoted }) => {\n    const query = text || (quoted && quoted.text);\n    if (!query) return m.reply('Apa yang ingin kamu tanyakan?');\nm.reply('wait')\n    try {\n      const res = await axios.get(`https://api.siputzx.my.id/api/ai/meta-llama-33-70B-instruct-turbo?content=${encodeURIComponent(query)}`);\n      m.reply(res.data.data);\n    } catch (e) {\n      m.reply('Maaf, terjadi kesalahan saat menghubungi AI.');\n    }\n  }\n}"
     }
   ],
   "remove": []
