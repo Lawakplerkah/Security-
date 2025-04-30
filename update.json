@@ -1,5 +1,5 @@
 {
-  "version": "11.43",
+  "version": "11.44",
   "update": [
     {
       "path": "plugins/special/owner.js",
@@ -68,6 +68,10 @@
     {
       "path": "plugins/jadibot/deljadibot.js",
       "code": "//CREATE BY REZA DEVS KUROMI\nexports.run={usage:[\\\"deljadibot\\\"],hidden:[\\\"delbot\\\"],use:\\\"mention or reply\\\",category:\\\"owner\\\",async:async(e,{froms:t})=>{var o;if(e.quoted||e.text)return t?void 0===(o=global.db.users[t])?e.reply(\\\"User data not found.\\\"):o.jadibot?(o.jadibot=!1,o.expired.jadibot=0,void e.reply(`@${t.replace(/@.+/,\\\"\\\")}'s jadibot status has been successfully deleted.`)):e.reply(\\\"Not a jadibot account.\\\"):e.reply(\\\"Invalid number.\\\");e.reply(\\\"Mention or Reply chat target.\\\")},owner:!0};"
+    },
+    {
+      "path": "plugins/jadibot/addjadibot.js",
+      "code": "//CREATE BY REZA DEVS KUROMI\nlet toMs=require(\\\"ms\\\");exports.run={usage:[\\\"addjadibot\\\"],hidden:[\\\"addbot\\\"],use:\\\"mention or reply\\\",category:\\\"owner\\\",async:async(a,{})=>{var e,d,[r,o]=a.text.split(\\\"|\\\");if(a.quoted)return e=global.db.users[a.quoted.sender],d=a.text?Date.now()+toMs(a.text):1/0,void 0===e?a.reply(\\\"User data not found.\\\"):e.jadibot?a.reply(`@${a.quoted.sender.replace(/@.+/,\\\"\\\")} has become registered as a jadibot account.`):(e.jadibot=!0,e.expired.jadibot=d,(e=global.db.jadibot.find(e=>e.number===a.quoted.sender))&&(e.status=!0),void a.reply(`Successfully added @${a.quoted.sender.replace(/@.+/,\\\"\\\")} to jadibot user`));if(a.text){if(!r)return a.reply(`Contoh : ${a.cmd} 6283894064758|30d`);if(d=isNaN(r)?r.startsWith(\\\"+\\\")?r.replace(/[()+\\s-]/g,\\\"\\\"):r.split(\\\"@\\\")[1]:r,isNaN(d))return a.reply(\\\"Invalid number.\\\");if(15<d.length)return a.reply(\\\"Invalid format.\\\");let t=r.replace(/[^0-9]/g,\\\"\\\")+\\\"@s.whatsapp.net\\\";return e=global.db.users[t],d=o?Date.now()+toMs(o):1/0,void 0===e?a.reply(\\\"User data not found.\\\"):e.jadibot?a.reply(`@${t.replace(/@.+/,\\\"\\\")} has become registered as a jadibot account.`):(e.jadibot=!0,e.expired.jadibot=d,(r=global.db.jadibot.find(e=>e.number===t))&&(r.status=!0),void a.reply(`Successfully added @${t.replace(/@.+/,\\\"\\\")} to jadibot user.`))}a.reply(\\\"Mention or Reply chat target.\\\")},owner:!0,location:\\\"plugins/jadibot/addjadibot.js\\\"};"
     }
   ],
   "remove": []
