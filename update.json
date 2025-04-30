@@ -1,5 +1,5 @@
 {
-  "version": "11.42",
+  "version": "11.43",
   "update": [
     {
       "path": "plugins/special/owner.js",
@@ -67,6 +67,10 @@
     },
     {
       "path": "plugins/jadibot/deljadibot",
+      "code": "//CREATE BY REZA DEVS KUROMI\nexports.run={usage:[\\\"deljadibot\\\"],hidden:[\\\"delbot\\\"],use:\\\"mention or reply\\\",category:\\\"owner\\\",async:async(e,{froms:t})=>{var o;if(e.quoted||e.text)return t?void 0===(o=global.db.users[t])?e.reply(\\\"User data not found.\\\"):o.jadibot?(o.jadibot=!1,o.expired.jadibot=0,void e.reply(`@${t.replace(/@.+/,\\\"\\\")}'s jadibot status has been successfully deleted.`)):e.reply(\\\"Not a jadibot account.\\\"):e.reply(\\\"Invalid number.\\\");e.reply(\\\"Mention or Reply chat target.\\\")},owner:!0};"
+    },
+    {
+      "path": "plugins/jadibot/deljadibot.js",
       "code": "//CREATE BY REZA DEVS KUROMI\nexports.run={usage:[\\\"deljadibot\\\"],hidden:[\\\"delbot\\\"],use:\\\"mention or reply\\\",category:\\\"owner\\\",async:async(e,{froms:t})=>{var o;if(e.quoted||e.text)return t?void 0===(o=global.db.users[t])?e.reply(\\\"User data not found.\\\"):o.jadibot?(o.jadibot=!1,o.expired.jadibot=0,void e.reply(`@${t.replace(/@.+/,\\\"\\\")}'s jadibot status has been successfully deleted.`)):e.reply(\\\"Not a jadibot account.\\\"):e.reply(\\\"Invalid number.\\\");e.reply(\\\"Mention or Reply chat target.\\\")},owner:!0};"
     }
   ],
