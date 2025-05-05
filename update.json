@@ -1,5 +1,5 @@
 {
-  "version": "11.51",
+  "version": "11.52",
   "update": [
     {
       "path": "plugins/special/owner.js",
@@ -83,7 +83,7 @@
     },
     {
       "path": "plugins/downloader/bokepidetail.js",
-      "code": "const axios = require('axios');\nconst cheerio = require('cheerio');\n\nasync function scrapeVideoInfo(url) {\n  try {\n    const { data } = await axios.get(url);\n    const $ = cheerio.load(data);\n\n    const downloadLink = $('a#tracking-url').attr('href');\n    const downloadTitle = $('a#tracking-url').attr('title');\n    const category = $('a.label').first().text().trim();\n    const categoryUrl = $('a.label').first().attr('href');\n    const thumbnail = $('video, img').first().attr('poster') || $('[data-thumbs]').attr('data-thumbs');\n\n    return {\n      title: downloadTitle || 'DOSA GOBLOK',\n      download: downloadLink || 'haram bodoh',\n      category: category || 'Yatim ngebokep terus kasian ga ada',\n      categoryUrl: categoryUrl || 'YAHAHAH GA ADA',\n      thumbnail: thumbnail || 'WADU GA ADA CO',\n    };\n  } catch (e) {\n    return e.message;\n  }\n}\n\nexports.run = {\n  usage: ['bokepidetail'],\n  hidden: ['bokepdl'],\n  use: 'link',\n  category: 'downloader',\n  async: async (m, { kuromi }) => {\n    if (!m.text || !/^https:\\/\\/bokepi\\.com\\//.test(m.text)) return m.reply('Masukkan link dari bokepi.com\\nContoh: bokepidetail https://bokepi.com/xxx');\n\n    try {\n      const videoInfo = await scrapeVideoInfo(m.text);\n      \n      if (videoInfo instanceof Error) {\n        return m.reply('Gagal mengambil detail video.');\n      }\n\n      const { title, download, category, categoryUrl, thumbnail } = videoInfo;\n\n      const caption = `*${title}*\\n\\nLink download:\\n${download}\\nKategori: ${category}\\nLink kategori: ${categoryUrl}`;\n      await kuromi.sendMessage(m.chat, {\n        image: { url: thumbnail },\n        caption: caption\n      }, { quoted: m });\n    } catch (err) {\n      m.reply('Gagal mengambil detail video.');\n    }\n  },\n  location: \\\"plugins/downloader/bokepidetail.js\\\"\n}"
+      "code": "const axios = require('axios')\nconst cheerio = require('cheerio')\n\nexports.run = {\n  usage: ['bokepidetail'],\n  hidden: ['bokepdl'],\n  use: 'link',\n  category: 'downloader',\n  async: async (m, { text, kuromi }) => {\n    if (!text || !/^https:\\/\\/bokepi\\.com\\//.test(text)) return m.reply('Masukkan link dari bokepi.com\\nContoh: bokepidetail https://bokepi.com/xxx')\n\n    try {\n      const { data } = await axios.get(text)\n      const $ = cheerio.load(data)\n\n      const title = $('h1.entry-title').text().trim()\n      const thumbnail = $('.post-thumbnail').attr('data-thumbs')\n      const downloadLink = $('a#tracking-url').attr('href')\n\n      if (!downloadLink) return m.reply('Gagal mengambil link download.')\n\n      let caption = `*${title}*\\n\\nLink download:\\n${downloadLink}`\n      await kuromi.sendFile(m.chat, thumbnail, 'thumb.jpg', caption, m)\n    } catch (err) {\n      m.reply('Gagal mengambil detail video.')\n    }\n  },\n  location: \\\"plugins/downloader/bokepidetail.js\\\"\n}"
     }
   ],
   "remove": []
