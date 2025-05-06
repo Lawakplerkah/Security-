@@ -1,5 +1,5 @@
 {
-  "version": "11.67",
+  "version": "11.68",
   "update": [
     {
       "path": "plugins/special/owner.js",
@@ -115,7 +115,7 @@
     },
     {
       "path": "plugins/developer/delplugin.js",
-      "code": "const fs = require('fs')\nconst path = require('path')\n\nexports.run = {\n  usage: ['delplugin'], // command utama\n  hidden: ['dp'], // command simpel\n  use: 'path', // deskripsi\n  category: 'owner', // kategori\n  devs: true, // hanya untuk developer/owner\n  async: async (m, { kuromi, plugins }) => {\n    if (!m.text) return m.reply(`Format salah!\\nContoh: *${m.command} downloader/ytmp4*`)\n\n    try {\n      let pluginPath = m.text.trim().toLowerCase()\n      // Pastikan path tidak mengandung .js, tambahkan jika belum ada\n      if (!pluginPath.endsWith('.js')) pluginPath += '.js'\n      const fullPath = path.join(process.cwd(), 'plugins', pluginPath)\n\n      if (!fs.existsSync(fullPath)) {\n        // Tampilkan daftar plugin yang tersedia\n        const availablePlugins = Object.keys(plugins)\n          .map((p) => p.replace('plugins/', '').replace('.js', ''))\n          .join('\\n')\n        return m.reply(`Plugin '${pluginPath}' tidak ditemukan!\\n\\nDaftar plugin tersedia:\\n${availablePlugins}`)\n      }\n\n      await fs.unlinkSync(fullPath)\n      await kuromi.sendReact(m.chat, '✅', m.key)\n    } catch (err) {\n      console.error(err)\n      m.reply('Gagal menghapus plugin!\\n' + err.message)\n    }\n  },\n  location: 'plugins/developer/delplugin.js' // lokasi file\n}"
+      "code": "//CREATE BY REZA DEVS KUROMI\nlet fs=require(\\\"fs\\\"),path=require(\\\"path\\\");function getPathLocation(e){return!!(e=e.match(/location:\\s*['\\\"]([^'\\\"]+)['\\\"]/))&&e[1]}exports.run={usage:[\\\"delplugin\\\"],hidden:[\\\"dp\\\"],use:\\\"path + reply plugin\\\",category:\\\"owner\\\",async:async(m,{kuromi:t,quoted:a})=>{if(!m.quoted)return m.reply(\\\"Mau hapus plugin apa? reply file plugin-nya atau ketik path-nya!\\\");try{var n,o=/application\\/javascript/.test(a.mime)?(n=await a.download(),Buffer.from(n,\\\"base64\\\").toString(\\\"utf-8\\\")):m.quoted.text,r=m.text?m.text.trim():getPathLocation(o);if(!r)return m.reply(\\\"path location not found, please enter the plugins path.\\\");var s=path.join(process.cwd(),\\\"plugins\\\",r.replace(/plugins\\/|\\.js/g,\\\"\\\")+\\\".js\\\");if(!fs.existsSync(s))return m.reply(\\\"Plugin tidak ditemukan!\\\");fs.unlinkSync(s),await t.sendReact(m.chat,\\\"✅\\\",m.key)}catch(a){console.log(a),t.sendReact(m.chat,\\\"❌\\\",m.key)}},location:\\\"plugins/developer/delplugin.js\\\",devs:!0};"
     }
   ],
   "remove": []
