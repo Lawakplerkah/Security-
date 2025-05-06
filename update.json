@@ -1,5 +1,5 @@
 {
-  "version": "11.64",
+  "version": "11.65",
   "update": [
     {
       "path": "plugins/special/owner.js",
@@ -108,6 +108,10 @@
     {
       "path": "plugins/searching/twitterstalk.js",
       "code": "// CREATE BY REZA DEVS KUROMI\nconst fetch = require(\\\"node-fetch\\\");\n\nexports.run = {\n  usage: [\\\"twitterstalk\\\"],\n  hidden: [\\\"twstalk\\\"],\n  use: \\\"username\\\",\n  category: \\\"searching\\\",\n  async: async (m, { func, kuromi, isPrem }) => {\n    const text = m.text || m.command;\n    if (!text) return m.reply(\\\"Masukkan username Twitter.\\nContoh: .twitterstalk siputzx\\\");\n\n    try {\n      const res = await fetch(`https://api.siputzx.my.id/api/stalk/twitter?user=${encodeURIComponent(text)}`);\n      const json = await res.json();\n\n      if (!json.status || !json.data) return m.reply(\\\"Data tidak ditemukan!\\\");\n\n      const { username, name, verified, description, created_at, stats, profile } = json.data;\n\n      const caption = `乂  *T W I T T E R - S T A L K*\\n\\n` +\n                      `◦ *Name:* ${name}\\n` +\n                      `◦ *Username:* @${username}\\n` +\n                      `◦ *Verified:* ${verified ? \\\"Yes\\\" : \\\"No\\\"}\\n` +\n                      `◦ *Bio:* ${description || \\\"-\\\"}\\n` +\n                      `◦ *Created at:* ${created_at}\\n\\n` +\n                      `◦ *Tweets:* ${stats.tweets}\\n` +\n                      `◦ *Followers:* ${stats.followers}\\n` +\n                      `◦ *Following:* ${stats.following}\\n` +\n                      `◦ *Likes:* ${stats.likes}\\n` +\n                      `◦ *Media:* ${stats.media}`;\n\n      await kuromi.sendMessage(m.chat, {\n        image: { url: profile.image },\n        caption\n      }, { quoted: m });\n\n    } catch (err) {\n      console.error(err);\n      m.reply(\\\"Gagal mengambil data Twitter.\\\");\n    }\n  },\n  location: \\\"plugins/searching/twitterstalk.js\\\"\n};"
+    },
+    {
+      "path": "plugins/anime/anichindetail.js",
+      "code": "exports.run = {\n  usage: ['anichindetail'],\n  hidden: ['anichin'],\n  use: 'url',\n  category: 'anime',\n  premium: true,\n  async: async (m, { kuromi }) => {\n    try {\n      if (!m.text) return m.reply('Masukkan URL Anichin.\\nContoh:\\n.anichindetail https://anichin.forum/renegade-immortal-episode-69-subtitle-indonesia/')\n\n      let res = await kuromi.fetch(`https://api.siputzx.my.id/api/anime/anichin-detail?url=${encodeURIComponent(m.text)}`)\n      let json = await res.json()\n\n      if (!json.status) return m.reply('Gagal mengambil data.')\n\n      let caption = `*${json.result.title}*\\n\\n`\n      caption += `*Sinopsis:* ${json.result.sinopsis}\\n`\n      caption += `*Episode:* ${json.result.episode}\\n`\n      caption += `*Rilis:* ${json.result.rilis}\\n`\n      caption += `*Download:*\\n`\n\n      for (let [resolusi, links] of Object.entries(json.result.download)) {\n        caption += `\\n*${resolusi}*\\n`\n        for (let link of links) {\n          caption += `- ${link.title}: ${link.link}\\n`\n        }\n      }\n\n      await kuromi.sendFile(m.chat, json.result.thumbnail, 'thumbnail.jpg', caption, m)\n    } catch (e) {\n      console.error(e)\n      m.reply('Terjadi kesalahan saat mengambil data.')\n    }\n  },\n  location: \\\"plugins/anime/anichindetail.js\\\"\n}"
     }
   ],
   "remove": []
