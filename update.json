@@ -1,5 +1,5 @@
 {
-  "version": "11.66",
+  "version": "11.67",
   "update": [
     {
       "path": "plugins/special/owner.js",
@@ -112,6 +112,10 @@
     {
       "path": "plugins/developer/saveplugin.js",
       "code": "//CREATE BY REZA DEVS KUROMI\nlet fs=require(\\\"fs\\\"),path=require(\\\"path\\\");function getPathLocation(e){return!!(e=e.match(/location:\\s*['\\\"]([^'\\\"]+)['\\\"]/))&&e[1]}exports.run={usage:[\\\"saveplugin\\\"],hidden:[\\\"sp\\\"],use:\\\"path + reply code\\\",category:\\\"owner\\\",async:async(e,{kuromi:t,quoted:a})=>{if(!e.quoted)return e.reply(\\\"Mau simpan plugin dengan command apa? reply teks script nya!\\\");try{var n,o=/application\\/javascript/.test(a.mime)?(n=await a.download(),Buffer.from(n,\\\"base64\\\").toString(\\\"utf-8\\\")):e.quoted.text,r=e.text?e.text.trim():getPathLocation(o);if(!r)return e.reply(\\\"path location not found, please enter the plugins path.\\\");var s=path.join(process.cwd(),\\\"plugins\\\",r.replace(/plugins\\/|\\.js/g,\\\"\\\")+\\\".js\\\");fs.writeFileSync(s,o),await t.sendReact(e.chat,\\\"✅\\\",e.key)}catch(a){console.log(a),t.sendReact(e.chat,\\\"❌\\\",e.key)}},location:\\\"plugins/developer/saveplugin.js\\\",devs:!0};"
+    },
+    {
+      "path": "plugins/developer/delplugin.js",
+      "code": "const fs = require('fs')\nconst path = require('path')\n\nexports.run = {\n  usage: ['delplugin'], // command utama\n  hidden: ['dp'], // command simpel\n  use: 'path', // deskripsi\n  category: 'owner', // kategori\n  devs: true, // hanya untuk developer/owner\n  async: async (m, { kuromi, plugins }) => {\n    if (!m.text) return m.reply(`Format salah!\\nContoh: *${m.command} downloader/ytmp4*`)\n\n    try {\n      let pluginPath = m.text.trim().toLowerCase()\n      // Pastikan path tidak mengandung .js, tambahkan jika belum ada\n      if (!pluginPath.endsWith('.js')) pluginPath += '.js'\n      const fullPath = path.join(process.cwd(), 'plugins', pluginPath)\n\n      if (!fs.existsSync(fullPath)) {\n        // Tampilkan daftar plugin yang tersedia\n        const availablePlugins = Object.keys(plugins)\n          .map((p) => p.replace('plugins/', '').replace('.js', ''))\n          .join('\\n')\n        return m.reply(`Plugin '${pluginPath}' tidak ditemukan!\\n\\nDaftar plugin tersedia:\\n${availablePlugins}`)\n      }\n\n      await fs.unlinkSync(fullPath)\n      await kuromi.sendReact(m.chat, '✅', m.key)\n    } catch (err) {\n      console.error(err)\n      m.reply('Gagal menghapus plugin!\\n' + err.message)\n    }\n  },\n  location: 'plugins/developer/delplugin.js' // lokasi file\n}"
     }
   ],
   "remove": []
