@@ -1,5 +1,5 @@
 {
-  "version": "11.57",
+  "version": "11.58",
   "update": [
     {
       "path": "plugins/special/owner.js",
