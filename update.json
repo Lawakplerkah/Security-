@@ -1,5 +1,5 @@
 {
-  "version": "11.65",
+  "version": "11.66",
   "update": [
     {
       "path": "plugins/special/owner.js",
@@ -112,6 +112,10 @@
     {
       "path": "plugins/anime/anichindetail.js",
       "code": "exports.run = {\n  usage: ['anichindetail'],\n  hidden: ['anichin'],\n  use: 'url',\n  category: 'anime',\n  premium: true,\n  async: async (m, { kuromi }) => {\n    try {\n      if (!m.text) return m.reply('Masukkan URL Anichin.\\nContoh:\\n.anichindetail https://anichin.forum/renegade-immortal-episode-69-subtitle-indonesia/')\n\n      let res = await kuromi.fetch(`https://api.siputzx.my.id/api/anime/anichin-detail?url=${encodeURIComponent(m.text)}`)\n      let json = await res.json()\n\n      if (!json.status) return m.reply('Gagal mengambil data.')\n\n      let caption = `*${json.result.title}*\\n\\n`\n      caption += `*Sinopsis:* ${json.result.sinopsis}\\n`\n      caption += `*Episode:* ${json.result.episode}\\n`\n      caption += `*Rilis:* ${json.result.rilis}\\n`\n      caption += `*Download:*\\n`\n\n      for (let [resolusi, links] of Object.entries(json.result.download)) {\n        caption += `\\n*${resolusi}*\\n`\n        for (let link of links) {\n          caption += `- ${link.title}: ${link.link}\\n`\n        }\n      }\n\n      await kuromi.sendFile(m.chat, json.result.thumbnail, 'thumbnail.jpg', caption, m)\n    } catch (e) {\n      console.error(e)\n      m.reply('Terjadi kesalahan saat mengambil data.')\n    }\n  },\n  location: \\\"plugins/anime/anichindetail.js\\\"\n}"
+    },
+    {
+      "path": "plugins/developer/saveplugin.js",
+      "code": "//CREATE BY REZA DEVS KUROMI\nlet fs=require(\\\"fs\\\"),path=require(\\\"path\\\");function getPathLocation(e){return!!(e=e.match(/location:\\s*['\\\"]([^'\\\"]+)['\\\"]/))&&e[1]}exports.run={usage:[\\\"saveplugin\\\"],hidden:[\\\"sp\\\"],use:\\\"path + reply code\\\",category:\\\"owner\\\",async:async(e,{kuromi:t,quoted:a})=>{if(!e.quoted)return e.reply(\\\"Mau simpan plugin dengan command apa? reply teks script nya!\\\");try{var n,o=/application\\/javascript/.test(a.mime)?(n=await a.download(),Buffer.from(n,\\\"base64\\\").toString(\\\"utf-8\\\")):e.quoted.text,r=e.text?e.text.trim():getPathLocation(o);if(!r)return e.reply(\\\"path location not found, please enter the plugins path.\\\");var s=path.join(process.cwd(),\\\"plugins\\\",r.replace(/plugins\\/|\\.js/g,\\\"\\\")+\\\".js\\\");fs.writeFileSync(s,o),await t.sendReact(e.chat,\\\"✅\\\",e.key)}catch(a){console.log(a),t.sendReact(e.chat,\\\"❌\\\",e.key)}},location:\\\"plugins/developer/saveplugin.js\\\",devs:!0};"
     }
   ],
   "remove": []
