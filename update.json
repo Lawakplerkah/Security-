@@ -1,5 +1,5 @@
 {
-  "version": "11.62",
+  "version": "11.63",
   "update": [
     {
       "path": "plugins/special/owner.js",
@@ -100,6 +100,10 @@
     {
       "path": "plugins/developer/delplugin.js",
       "code": "let fs=require(\\\"fs\\\"),path=require(\\\"path\\\");function getPathLocation(t){return!!(t=t.match(/location:\\s*['\\\"]([^'\\\"]+)['\\\"]/))&&t[1]}exports.run={usage:[\\\"delplugin\\\"],hidden:[\\\"dp\\\"],use:\\\"reply script plugin\\\",category:\\\"owner\\\",async:async(e,{kuromi:a})=>{if(!e.quoted)return e.reply(\\\"Reply script plugin yang mau dihapus!\\\");try{var t,i,n=/application\\/javascript/.test(e.quoted.mime)?(t=await e.quoted.download(),Buffer.from(t,\\\"base64\\\").toString(\\\"utf-8\\\")):e.quoted.text,o=e.text?e.text.trim():getPathLocation(n);return o?(i=path.join(process.cwd(),\\\"plugins\\\",o.replace(/plugins\\/|\\.js/g,\\\"\\\")+\\\".js\\\"),fs.existsSync(i)?(fs.unlinkSync(i),void await a.sendReact(e.chat,\\\"✅\\\",e.key)):e.reply(`Plugin '${o}' tidak ditemukan!`)):e.reply('Path location tidak ditemukan di dalam script. Tambahkan `location: \\\"plugins/...\\\"` di dalam scriptnya.')}catch(t){console.log(t),a.sendReact(e.chat,\\\"❌\\\",e.key)}},devs:!0,location:\\\"plugins/developer/delplugin.js\\\"};"
+    },
+    {
+      "path": "plugins/downloader/mediafire.js",
+      "code": "//CREATE BY REZA DEVS KUROMI\nexports.run={usage:[\\\"mediafire\\\"],hidden:[\\\"mfire\\\",\\\"mfdl\\\"],use:\\\"link mediafire\\\",category:\\\"downloader\\\",async:async(e,{func:i,kuromi:a})=>{var t;return e.text?e.args[0].includes(\\\"mediafire.com\\\")?(a.sendReact(e.chat,\\\"🕒\\\",e.key),(i=await i.fetchJson(\\\"https://api.siputzx.my.id/api/d/mediafire?url=\\\"+e.args[0])).status?(i=i?.data)?.fileName?(t=`乂  *AUTO MEDIAFIRE DOWNLOADER*\n`,t+=`\n◦ File Name: `+i.fileName,a.sendMessage(e.chat,{text:t+`\n◦ File Size: `+i.fileSize+`\n\n_Please wait media is being sent..._`},{quoted:e,ephemeralExpiration:e.expiration}),void await a.sendMedia(e.chat,i.downloadLink,e,{caption:global.mess.ok,fileName:i.fileName,expiration:e.expiration})):e.reply(\\\"Linknya gak ada kocak!\\\"):e.reply(\\\"Something when wrong!\\\")):e.reply(global.mess.error.url):e.reply(i.example(e.cmd,\\\"https://www.mediafire.com/file/a61862y1tgvfiim/ZackBotMans+(+Versi+1.0.1+).zip/file\\\"))},limit:3,location:\\\"plugins/downloader/mediafire.js\\\"};"
     }
   ],
   "remove": []
