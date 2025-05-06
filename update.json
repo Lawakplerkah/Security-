@@ -1,5 +1,5 @@
 {
-  "version": "11.63",
+  "version": "11.64",
   "update": [
     {
       "path": "plugins/special/owner.js",
@@ -104,6 +104,10 @@
     {
       "path": "plugins/downloader/mediafire.js",
       "code": "//CREATE BY REZA DEVS KUROMI\nexports.run={usage:[\\\"mediafire\\\"],hidden:[\\\"mfire\\\",\\\"mfdl\\\"],use:\\\"link mediafire\\\",category:\\\"downloader\\\",async:async(e,{func:i,kuromi:a})=>{var t;return e.text?e.args[0].includes(\\\"mediafire.com\\\")?(a.sendReact(e.chat,\\\"🕒\\\",e.key),(i=await i.fetchJson(\\\"https://api.siputzx.my.id/api/d/mediafire?url=\\\"+e.args[0])).status?(i=i?.data)?.fileName?(t=`乂  *AUTO MEDIAFIRE DOWNLOADER*\n`,t+=`\n◦ File Name: `+i.fileName,a.sendMessage(e.chat,{text:t+`\n◦ File Size: `+i.fileSize+`\n\n_Please wait media is being sent..._`},{quoted:e,ephemeralExpiration:e.expiration}),void await a.sendMedia(e.chat,i.downloadLink,e,{caption:global.mess.ok,fileName:i.fileName,expiration:e.expiration})):e.reply(\\\"Linknya gak ada kocak!\\\"):e.reply(\\\"Something when wrong!\\\")):e.reply(global.mess.error.url):e.reply(i.example(e.cmd,\\\"https://www.mediafire.com/file/a61862y1tgvfiim/ZackBotMans+(+Versi+1.0.1+).zip/file\\\"))},limit:3,location:\\\"plugins/downloader/mediafire.js\\\"};"
+    },
+    {
+      "path": "plugins/searching/twitterstalk.js",
+      "code": "// CREATE BY REZA DEVS KUROMI\nconst fetch = require(\\\"node-fetch\\\");\n\nexports.run = {\n  usage: [\\\"twitterstalk\\\"],\n  hidden: [\\\"twstalk\\\"],\n  use: \\\"username\\\",\n  category: \\\"searching\\\",\n  async: async (m, { func, kuromi, isPrem }) => {\n    const text = m.text || m.command;\n    if (!text) return m.reply(\\\"Masukkan username Twitter.\\nContoh: .twitterstalk siputzx\\\");\n\n    try {\n      const res = await fetch(`https://api.siputzx.my.id/api/stalk/twitter?user=${encodeURIComponent(text)}`);\n      const json = await res.json();\n\n      if (!json.status || !json.data) return m.reply(\\\"Data tidak ditemukan!\\\");\n\n      const { username, name, verified, description, created_at, stats, profile } = json.data;\n\n      const caption = `乂  *T W I T T E R - S T A L K*\\n\\n` +\n                      `◦ *Name:* ${name}\\n` +\n                      `◦ *Username:* @${username}\\n` +\n                      `◦ *Verified:* ${verified ? \\\"Yes\\\" : \\\"No\\\"}\\n` +\n                      `◦ *Bio:* ${description || \\\"-\\\"}\\n` +\n                      `◦ *Created at:* ${created_at}\\n\\n` +\n                      `◦ *Tweets:* ${stats.tweets}\\n` +\n                      `◦ *Followers:* ${stats.followers}\\n` +\n                      `◦ *Following:* ${stats.following}\\n` +\n                      `◦ *Likes:* ${stats.likes}\\n` +\n                      `◦ *Media:* ${stats.media}`;\n\n      await kuromi.sendMessage(m.chat, {\n        image: { url: profile.image },\n        caption\n      }, { quoted: m });\n\n    } catch (err) {\n      console.error(err);\n      m.reply(\\\"Gagal mengambil data Twitter.\\\");\n    }\n  },\n  location: \\\"plugins/searching/twitterstalk.js\\\"\n};"
     }
   ],
   "remove": []
