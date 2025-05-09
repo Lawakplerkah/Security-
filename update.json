@@ -1,5 +1,5 @@
 {
-  "version": "1",
+  "version": "1.01",
   "update": [
     {
       "path": "plugins/special/owner.js",
@@ -44,6 +44,10 @@
     {
       "path": "plugins/ai/metaai.js",
       "code": "const axios = require('axios');\n\nexports.run = {\n  usage: ['metaai'],\n  hidden: ['ma'],\n  use: 'tanya ke Meta Llama 3',\n  category: 'ai',\n  async: async (m, { text, quoted }) => {\n    const query = text || (quoted && quoted.text);\n    if (!query) return m.reply('Apa yang ingin kamu tanyakan?');\nm.reply('wait')\n    try {\n      const res = await axios.get(`https://api.siputzx.my.id/api/ai/meta-llama-33-70B-instruct-turbo?content=${encodeURIComponent(query)}`);\n      m.reply(res.data.data);\n    } catch (e) {\n      m.reply('Maaf, terjadi kesalahan saat menghubungi AI.');\n    }\n  }\n}"
+    },
+    {
+      "path": "plugins/convert/stickermeme.js",
+      "code": "/* CODE LAIN CHEK\nhttps://whatsapp.com/channel/0029VbARSvBCMY0PDV53rt0m\nJANGAN LUPA FOLLOW\n*/\n\n//CREATE BY REZA DEVS KUROMI\nlet axios=require(\\\"axios\\\"),FormData=require(\\\"form-data\\\"),fromBuffer=require(\\\"file-type\\\").fromBuffer;async function tmpfiles(e){var{ext:t,mime:a}=await fromBuffer(e)||{},i=new FormData,e=(i.append(\\\"file\\\",e,{filename:\\\"tmp.\\\"+t,contentType:a}),(await axios.post(\\\"https://tmpfiles.org/api/v1/upload\\\",i,{headers:i.getHeaders()})).data);return\\\"https://tmpfiles.org/dl/\\\"+/https?:\\/\\/tmpfiles.org\\/(.*)/.exec(e.data.url)[1]}exports.run={usage:[\\\"stickermeme\\\"],hidden:[\\\"smeme\\\"],use:\\\"text atas | bawah\\\",category:\\\"convert\\\",async:async(e,{func:t,kuromi:a,quoted:i,packname:n,author:r})=>{var s=e.text.includes(\\\"|\\\")?e.text.split(\\\"|\\\")[0]?e.text.split(\\\"|\\\")[0]:e.text:\\\"-\\\",o=e.text.includes(\\\"|\\\")?e.text.split(\\\"|\\\")[1]?e.text.split(\\\"|\\\")[1]:\\\"\\\":e.text;if(!e.text)return e.reply(t.example(e.cmd,\\\"beliau | awikawok\\\"));if(75<e.text.length)return e.reply(\\\"Textnya kepanjangan.\\\");if(/image\\/(jpe?g|png)/.test(i.mime)){if(\\\"120363264558127828@g.us\\\"===e.chat&&!e.isPrem&&!e.isOwner&&e.isBotAdmin)return a.sendMessage(e.chat,{delete:{remoteJid:e.chat,fromMe:!1,id:e.key.id,participant:e.sender}}).then(()=>a.sendMessage(e.chat,{text:\\\"baca deskripsi BODOH, dilarang buat sticker di grup.\\\",mentions:[e.sender]},{quoted:e,ephemeralExpiration:e.expiration}));a.sendReact(e.chat,\\\"🕒\\\",e.key),t=await tmpfiles(await i.download()),t=`https://api.memegen.link/images/custom/${encodeURIComponent(s)}/${encodeURIComponent(o)}.png?background=`+t,a.sendSticker(e.chat,t,e,{packname:n,author:r,expiration:e.expiration})}else if(/webp/.test(i.mime)){if(e.quoted.isAnimated)return e.reply(\\\"Not support gif stickers.\\\");a.sendReact(e.chat,\\\"🕒\\\",e.key),t=await tmpfiles(await i.download()),i=`https://api.memegen.link/images/custom/${encodeURIComponent(s)}/${encodeURIComponent(o)}.png?background=`+t,a.sendSticker(e.chat,i,e,{packname:n,author:r,expiration:e.expiration})}else e.reply(`Kirim/Reply gambar dengan caption ${e.cmd} text atas | text bawah`)},restrict:!0,limit:5,location:\\\"plugins/convert/stickermeme.js\\\"};"
     }
   ]
 }
