@@ -1,5 +1,5 @@
 {
-  "version": "NaN",
+  "version": "1",
   "update": [
     {
       "path": "plugins/convert/tourl.js",
