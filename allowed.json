@@ -3,7 +3,7 @@
     {
       "username": "Kanemi",
       "password": "Kanemi",
-      "phoneNumber": "+62 895-0242-3402"
+      "phoneNumber": ""
     },
     {
       "username": "zora",
@@ -129,6 +129,10 @@
     {
       "username": "Fall",
       "phoneNumber": "62882003386142"
+    },
+    {
+      "username": "Kanemi",
+      "phoneNumber": ""
     }
   ]
 }
