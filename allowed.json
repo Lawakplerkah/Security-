@@ -59,6 +59,11 @@
       "username": "Fall",
       "password": "Fall",
       "phoneNumber": "62882003386142"
+    },
+    {
+      "username": "Morgan",
+      "password": "Morgan",
+      "phoneNumber": ""
     }
   ],
   "sessions": [
