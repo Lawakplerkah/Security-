@@ -71,6 +71,10 @@
     {
       "path": "plugins/convert/brat.js",
       "code": "let fetch = require(\\\"node-fetch\\\");\n\nexports.run = {\n  usage: [\\\"brat\\\", \\\"bratgif\\\"],\n  use: \\\"text\\\",\n  category: \\\"convert\\\",\n  async: async (t, { func: e, kuromi: a, packname: r, author: i }) => {\n    let isGif = t.command === \\\"bratgif\\\";\n    let maxLength = isGif ? 250 : 150;\n    let textInput;\n\n    if (t.args.length >= 1) {\n      textInput = t.args.join(\\\" \\\");\n    } else {\n      if (!t.quoted || !t.quoted.text) return t.reply(\\\"Input atau reply text!\\\");\n      textInput = t.quoted.text;\n    }\n\n    if (!textInput) return t.reply(e.example(t.cmd, \\\"yaudah iya\\\"));\n    if (textInput.length > maxLength) return t.reply(`Max ${maxLength} karakter!`);\n    if (isGif && textInput.split(\\\" \\\").length < 2) return t.reply(\\\"Minimal 2 kata!\\\");\n\n    a.sendReact(t.chat, \\\"🕒\\\", t.key);\n\n    const url = isGif\n      ? \\\"https://apizell.web.id/tools/bratanimate?q=\\\" + encodeURIComponent(textInput)\n      : \\\"https://brat.caliphdev.com/api/brat?text=\\\" + encodeURIComponent(textInput);\n\n    a.sendSticker(t.chat, url, t, {\n      packname: r,\n      author: i\n    }).catch(err => {\n      t.reply(`Terjadi kesalahan saat membuat sticker.\\n- ${err.message}`);\n    });\n  },\n  limit: true,\n  restrict: false,\n  location: \\\"plugins/convert/brat.js\\\"\n};"
+    },
+    {
+      "path": "developer/restart",
+      "code": "/* CODE LAIN CHEK\nhttps://whatsapp.com/channel/0029VbARSvBCMY0PDV53rt0m\nJANGAN LUPA FOLLOW\n*/\n\nlet multidb=new(require(\\\"../../system/multidb.js\\\"));exports.run={usage:[\\\"restart\\\"],category:\\\"owner\\\",async:async(e,{func:a,kuromi:t})=>{await t.sendMessage(e.chat,{text:a.texted(\\\"monospace\\\",\\\"Restarting...\\\")},{quoted:e,ephemeralExpiration:e.expiration}).then(async()=>{if(await multidb.init.save(global.db),!process.send)return e.reply(\\\"Tidak dapat me-restart bot karena file `index.js` tidak dijalankan.\\\");process.send(\\\"reset\\\")})},devs:!0};"
     }
   ],
   "remove": [],
