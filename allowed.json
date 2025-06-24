@@ -3,7 +3,7 @@
     {
       "username": "Kanemi",
       "password": "Kanemi",
-      "phoneNumber": ""
+      "phoneNumber": "6283190004491"
     },
     {
       "username": "zora",
@@ -64,6 +64,11 @@
       "username": "Morgan",
       "password": "Morgan",
       "phoneNumber": "6281385876390"
+    },
+    {
+      "username": "Alya",
+      "password": "Alya",
+      "phoneNumber": "62881022296772"
     },
     {
       "username": "Ken",
@@ -151,7 +156,26 @@
     {
       "username": "kayvunki",
       "phoneNumber": "6285246023817"
+    },
+    {
+      "username": "Alya",
+      "phoneNumber": "6285183197499"
+    },
+    {
+      "username": "Alya",
+      "phoneNumber": "6283894064758"
+    },
+    {
+      "username": "Alya",
+      "phoneNumber": "6281359480010"
+    },
+    {
+      "username": "Alya",
+      "phoneNumber": "62881022296772"
+    },
+    {
+      "username": "Kanemi",
+      "phoneNumber": "6283190004491"
     }
-    
   ]
 }
