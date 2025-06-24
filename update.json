@@ -71,11 +71,8 @@
     {
       "path": "plugins/downloader/tiktok.js",
       "code": "/* CODE LAIN CHEK\nhttps://whatsapp.com/channel/0029VbARSvBCMY0PDV53rt0m\nJANGAN LUPA FOLLOW\n*/\n\nconst axios = require('axios')\nconst qs = require('qs')\n\nexports.run = {\n  usage: ['tiktok'],\n  hidden: ['tt'],\n  use: 'link tiktok',\n  category: 'downloader',\n  async: async (m, { func, kuromi }) => {\n    if (!m.text) return m.reply(func.example(m.cmd, 'https://vt.tiktok.com/ZSF4cWcA2/'))\n    if (!m.args[0].includes('tiktok.com')) return m.reply(global.mess.error.url)\n\n    kuromi.sendReact(m.chat, '🕒', m.key)\n\n    try {\n      const { data } = await axios.post(\n        'https://tikwm.com/api/',\n        qs.stringify({\n          url: m.args[0],\n          count: 12,\n          cursor: 0,\n          web: 1,\n          hd: 1\n        }),\n        {\n          headers: {\n            'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',\n            'Accept': 'application/json, text/javascript, */*; q=0.01',\n            'X-Requested-With': 'XMLHttpRequest',\n            'User-Agent': 'Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/133.0.0.0 Mobile Safari/537.36',\n            'Referer': 'https://tikwm.com/'\n          }\n        }\n      )\n\n      if (data.code !== 0) return m.reply('Gagal mengambil data dari TikTok.')\n\n      const result = data.data\n\n      let txt = '乂  *TIKTOK - DOWNLOADER*\\n'\n      txt += `\\n◦ *Title* : ${result.title}`\n      txt += `\\n◦ *User* : ${result.author.nickname} (@${result.author.unique_id})`\n      txt += `\\n◦ *Durasi* : ${result.duration}s`\n      txt += `\\n◦ *Likes* : ${result.digg_count.toLocaleString()}`\n      txt += `\\n◦ *Views* : ${result.play_count.toLocaleString()}`\n      txt += `\\n◦ *Shares* : ${result.share_count.toLocaleString()}`\n      txt += `\\n◦ *Comments* : ${result.comment_count.toLocaleString()}`\n      txt += `\\n◦ *Download* : Tanpa Watermark`\n\n      await kuromi.sendMessage(m.chat, {\n        video: { url: 'https://tikwm.com' + result.play },\n        caption: txt\n      }, { quoted: m, ephemeralExpiration: m.expiration })\n\n    } catch (err) {\n      console.error(err)\n      m.reply('Maaf, terjadi kesalahan saat memproses video.')\n    }\n  },\n  limit: 5\n}"
-    },
-    {
-      "path": "system/baileys.js",
-      "code": "system/baileys.js"
     }
+    
   ],
   "remove": [],
   "version": "1.01"
