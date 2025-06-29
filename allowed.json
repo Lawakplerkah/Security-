@@ -68,7 +68,7 @@
     {
       "username": "Alya",
       "password": "Alya",
-      "phoneNumber": "62881022296772"
+      "phoneNumber": "6288268162423"
     },
     {
       "username": "Ken",
@@ -188,6 +188,10 @@
     {
       "username": "Kanemi",
       "phoneNumber": "6285123248124"
+    },
+    {
+      "username": "Alya",
+      "phoneNumber": "6288268162423"
     }
   ]
 }
