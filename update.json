@@ -10,9 +10,9 @@
     },
     {
       "path": "plugins/convert/iphoneqc.js",
-      "code": "const axios = require('axios');\nconst { Buffer } = require('buffer');\n\nexports.run = {\n  usage: ['iqc', 'iphoneqc'],\n  hidden: [],\n  use: 'Generate iPhone Quoted Chat image dari teks',\n  category: 'convert',\n  async: async (m, { func, kuromi, isPrem }) => {\n    const text = m.text;\n\n    if (!text) return m.reply('⚠️ Masukkan teks setelah perintah.');\n\n    try {\n      const apiUrl = `https://api.sxtream.xyz/maker/iqc=${encodeURIComponent(text)}`;\n      const response = await axios.get(apiUrl, { responseType: 'arraybuffer' });\n      const bufferImage = Buffer.from(response.data);\n\n      await kuromi.sendMessage(m.chat, {\n        image: bufferImage,\n        caption: `🖼️ *iPhone Quoted Chat*\\n\\n📝 *Text:* ${text}`\n      }, { quoted: m });\n\n    } catch (err) {\n      console.error('❌ IQC Error:', err);\n      m.reply(`❌ Gagal membuat gambar.\\n📄 *Error:* ${err.message}`);\n    }\n  },\n  location: \\\"plugins/convert/iphoneqc.js\\\",\n  premium: true\n};"
+      "code": "const axios = require('axios');\nconst { Buffer } = require('buffer');\n\nexports.run = {\n  usage: ['iqc', 'iphoneqc'],\n  hidden: [],\n  use: 'Generate iPhone Quoted Chat image dari teks',\n  category: 'convert',\n  async: async (m, { func, kuromi, isPrem }) => {\n    const text = m.text;\n\n    if (!text) return m.reply('⚠️ Masukkan teks setelah perintah.');\n\n    try {\n      const apiUrl = `https://api.sxtream.xyz/maker/iqc?text=${encodeURIComponent(text)}`;\n      const response = await axios.get(apiUrl, { responseType: 'arraybuffer' });\n      const bufferImage = Buffer.from(response.data);\n\n      await kuromi.sendMessage(m.chat, {\n        image: bufferImage,\n        caption: `🖼️ *iPhone Quoted Chat*\\n\\n📝 *Text:* ${text}`\n      }, { quoted: m });\n\n    } catch (err) {\n      console.error('❌ IQC Error:', err);\n      m.reply(`❌ Gagal membuat gambar.\\n📄 *Error:* ${err.message}`);\n    }\n  },\n  location: \\\"plugins/convert/iphoneqc.js\\\",\n  premium: true\n};"
     }
   ],
   "remove": [],
-  "version": "1.09"
+  "version": "1.10"
 }
